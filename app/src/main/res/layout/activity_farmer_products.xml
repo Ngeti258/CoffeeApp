@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_200"
+    tools:context=".Login">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dropdown_field2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/header"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="22dp"
+        android:hint="Select Coffee type"
+        android:textSize="30sp"
+        android:paddingLeft="15dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_field"
+            android:layout_width="370dp"
+            android:layout_height="50dp"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/edt_background"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Product"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_centerHorizontal="true"
+
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/edt_grade"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/dropdown_field2"
+        android:layout_marginTop="20dp"
+        android:hint="Coffee Grade"
+        android:paddingLeft="33dp"
+        android:textSize="18dp"
+        android:background="@drawable/edt_background"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <EditText
+        android:id="@+id/edt_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edt_grade"
+        android:layout_marginTop="20dp"
+        android:hint="Quantity in kilograms"
+        android:background="@drawable/edt_background"
+        android:textSize="18dp"
+
+        android:paddingLeft="33dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <EditText
+        android:id="@+id/edt_price"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edt_quantity"
+        android:layout_marginTop="20dp"
+        android:hint="Price in kenyan Shillings per kilogram"
+        android:background="@drawable/edt_background"
+        android:textSize="18dp"
+
+        android:paddingLeft="33dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+
+    <Button
+        android:id="@+id/btn_post"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_price"
+        android:text="Post"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_background"
+        />
+
+
+
+
+
+</RelativeLayout>
+

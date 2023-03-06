@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_200"
+    tools:context=".Signup">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coffee App"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dropdown_field2"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:hint="Choose Role"
+        android:layout_below="@id/edt_Email"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_field"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/edt_background"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/edt_Email"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profile" />
+
+    <EditText
+        android:id="@+id/edt_Name"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:hint="Name"
+        android:background="@drawable/edt_background"
+        android:padding="12dp"
+        android:layout_below="@id/user_icon"/>
+
+    <EditText
+        android:id="@+id/edt_Email"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:hint="Email Address"
+        android:background="@drawable/edt_background"
+        android:padding="12dp"
+        android:layout_below="@id/edt_Name"/>
+
+
+
+
+    <EditText
+        android:id="@+id/edt_Password"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:hint="Password"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:inputType="textPassword"
+        android:background="@drawable/edt_background"
+        android:padding="12dp"
+        android:layout_below="@id/dropdown_field2"
+        />
+
+    <EditText
+        android:id="@+id/edt_PasswordConfirmation"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:hint="Password Confirmation"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edt_background"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:layout_below="@id/edt_Password"
+        />
+
+
+
+    <Button
+        android:id="@+id/btn_Signup"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:background="@drawable/btn_background"
+        android:layout_below="@id/edt_PasswordConfirmation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:id="@+id/text_login"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:text="Already have an account?Login"
+        android:layout_below="@id/btn_Signup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</RelativeLayout>
