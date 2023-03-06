@@ -98,10 +98,5 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_background"
         />
-
-
-
-
-
 </RelativeLayout>
 

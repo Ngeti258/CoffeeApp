@@ -53,6 +53,19 @@ class FarmerProducts : AppCompatActivity() {
             val price = edtPrice.text.toString()
 
             addPostToDatabase(type,grade,quantity,price, mAuth.currentUser?.uid!!)
+            if (type.isEmpty()) {
+                coffeeType.error = "coffee type is required"
+                return@setOnClickListener
+            } else if (grade.isEmpty()) {
+                edtGrade.error = "Grade is required"
+                return@setOnClickListener
+            }else if (quantity.isEmpty()) {
+                edtQuantity.error = "Role is required"
+                return@setOnClickListener
+            } else if (price.isEmpty()) {
+                edtPrice.error = "Price is required"
+                return@setOnClickListener
+            }
         }
     }
 
