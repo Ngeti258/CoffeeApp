@@ -1,14 +1,9 @@
 package com.example.coffeeapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.example.coffeeapp.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -33,17 +28,14 @@ class Signup : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private lateinit var userID: String
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val roles = listOf("Farmer", "Customer")
-        val adapter = ArrayAdapter(this, R.layout.role_list_view, roles)
+        val role = listOf("Farmer", "Customer")
+        val adapter = ArrayAdapter(this, R.layout.role_list_view, role)
         binding.dropdownField.setAdapter(adapter)
 
 
@@ -55,7 +47,7 @@ class Signup : AppCompatActivity() {
         edtPasswordConfirmation = findViewById(R.id.edt_PasswordConfirmation)
         btnSignUp = findViewById(R.id.btn_Signup)
         mAuth = FirebaseAuth.getInstance()
-        mDbRef = FirebaseDatabase.getInstance().getReference()
+        mDbRef = FirebaseDatabase.getInstance().reference
         mDbRef = Firebase.database.reference
 
         loginText.setOnClickListener{
@@ -127,14 +119,10 @@ class Signup : AppCompatActivity() {
                 }
             }
     }
-
     private fun addUserToDatabase(name: String, email: String, role: String,uid: String) {
         mDbRef = FirebaseDatabase.getInstance().getReference()
         mDbRef.child("user").child(uid).setValue(Users(name, email, role, uid))
     }
-
-
-
 }
 
 

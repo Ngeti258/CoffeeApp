@@ -5,13 +5,14 @@
 
     <TextView
         android:id="@+id/txt_name"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="No orders yet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/purple_500"
+        android:text="@string/no_orders_yet"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
 
         />
     <View
