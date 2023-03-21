@@ -1,18 +1,22 @@
 package com.example.coffeeapp
 
 class Products {
-    var type:String? = null
-    var grade:String? = null
-    var quantity:String? = null
-    var price:String? = null
+    var coffeeType:String? = null
+    var coffeeGrade:String? = null
+    var quantity:Number? = null
+    var price:Number? = null
     var uid : String? = null
+    var imageUrl: Int? = null
+
+    constructor(){}
 
 
-    constructor(type:String?,grade:String?,quantity:String?,price: String?,uid: String?){
-        this.type =  type
-        this.grade = grade
+    constructor(coffeeType:String?,coffeeGrade:String?,quantity:Number?,price:Number?,uid: String?,imageUrl : Int?){
+        this.coffeeType  = coffeeType
+        this.coffeeGrade = coffeeGrade
         this.quantity = quantity
         this.price = price
         this.uid = uid
+        this.imageUrl = imageUrl
     }
 }
