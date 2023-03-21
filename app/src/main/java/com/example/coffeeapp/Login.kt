@@ -1,16 +1,15 @@
 package com.example.coffeeapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -70,9 +69,9 @@ class Login : AppCompatActivity() {
                     //readData(email)
                     user = FirebaseAuth.getInstance().currentUser!!
                     mDbRef = FirebaseDatabase.getInstance().getReference("user")
-                    userID = user.uid
 
-                    mDbRef.child(userID).get().addOnSuccessListener {
+
+                    mDbRef.child(user.uid).get().addOnSuccessListener {
                         if (it.exists()) {
                             val role = it.child("role").value
                             if (role == "Farmer") {
@@ -91,10 +90,7 @@ class Login : AppCompatActivity() {
                         Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-
-                    Toast.makeText(this@Login, "incorrect username or password", Toast.LENGTH_SHORT)
-                        .show()
-
+                    Toast.makeText(this@Login, "incorrect username or password", Toast.LENGTH_SHORT).show()
                 }
             }
     }
