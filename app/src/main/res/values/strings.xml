@@ -30,5 +30,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_orders_yet">No orders yet</string>
     <string name="enter_image">enter image</string>
+    <string name="view_products">View My Products</string>
 
 </resources>
