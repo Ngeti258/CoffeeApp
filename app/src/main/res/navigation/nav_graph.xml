@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.coffeeapp.FarmerProductsFragment"
+        android:name="com.example.coffeeapp.farmer.FarmerProductsFragment"
         android:label="home"
         tools:layout="@layout/fragment_farmer_products">
 
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/nav_products"
-        android:name="com.example.coffeeapp.HistoryFragment"
+        android:name="com.example.coffeeapp.farmer.ProductsFragment"
         android:label="history"
-        tools:layout="@layout/activity_history">
+        tools:layout="@layout/fragment_products">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
