@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeapp.farmer.Products
 import com.example.coffeeapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var productRecyclerView: RecyclerView
-    //private lateinit var productAdapter: com.example.coffeeapp.ProductAdapter
+    //private lateinit var productAdapter: com.example.coffeeapp.Famer.ProductAdapter
     private lateinit var productList : ArrayList<Products>
     private lateinit var userID: String
     private lateinit var binding: ActivityMainBinding
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         edtPrice = findViewById(R.id.edt_price)
         btnPost = findViewById(R.id.btn_post)
         productList = ArrayList()
-        //productAdapter = com.example.coffeeapp.ProductAdapter(this,productList)
+        //productAdapter = com.example.coffeeapp.Famer.ProductAdapter(this,productList)
         productRecyclerView.layoutManager = LinearLayoutManager(this)
         //productRecyclerView.adapter = productAdapter
 

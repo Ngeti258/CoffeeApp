@@ -1,4 +1,4 @@
-package com.example.coffeeapp
+package com.example.coffeeapp.farmer
 
 class Products {
     var coffeeType:String? = null
