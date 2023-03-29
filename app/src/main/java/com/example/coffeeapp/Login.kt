@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.coffeeapp.customer.Customer
+import com.example.coffeeapp.farmer.Farmer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -21,10 +23,8 @@ class Login : AppCompatActivity() {
     private lateinit var btnSignUp: Button
     private lateinit var mDbRef: DatabaseReference
     private lateinit var user: FirebaseUser
-    private lateinit var userID: String
-
-
     private lateinit var mAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -36,7 +36,7 @@ class Login : AppCompatActivity() {
         edtPassword = findViewById(R.id.edt_password)
         btnLogin = findViewById(R.id.btn_login)
         btnSignUp = findViewById(R.id.btn_signup)
-        mDbRef = FirebaseDatabase.getInstance().getReference()
+        mDbRef = FirebaseDatabase.getInstance().reference
         mDbRef = Firebase.database.reference
 
         btnSignUp.setOnClickListener {
@@ -79,7 +79,7 @@ class Login : AppCompatActivity() {
                                 finish()
                                 startActivity(intent)
                             } else if (role == "Customer") {
-                                val intent = Intent(this, MainActivity::class.java)
+                                val intent = Intent(this, Customer::class.java)
                                 finish()
                                 startActivity(intent)
                             }
