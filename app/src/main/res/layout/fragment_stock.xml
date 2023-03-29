@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".farmer.StockFragment">
+
+<!--    <TextView-->
+<!--        android:id="@+id/header"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:text="Stock Managment"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:fontFamily="bold"-->
+<!--        android:layout_height="120dp"/>-->
+
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/coffee_type"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="15dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/edt_background"
+        android:hint="Coffee Grade"
+        android:paddingLeft="33dp"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/coffee_grade"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/coffee_type"
+        android:layout_marginTop="15dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/edt_background"
+        android:hint="Coffee Grade"
+        android:paddingLeft="33dp"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/coffee_quantity"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/coffee_grade"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edt_background"
+        android:hint="Quantity in kilograms"
+        android:paddingLeft="33dp"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/coffee_price"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/coffee_quantity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edt_background"
+        android:hint="Price in kenyan Shillings per kilogram"
+        android:paddingLeft="33dp"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/coffee_price"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/btn_background"
+        android:text="Update" />
+
+
+
+
+
+
+</RelativeLayout>
