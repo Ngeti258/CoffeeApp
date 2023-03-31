@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
 import com.example.coffeeapp.farmer.Product
-import com.example.coffeeapp.farmer.ProductsFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -47,65 +46,7 @@ class CustomerHomeFragment : Fragment() {
         productsRecyclerView = rootView.findViewById(R.id.products_recyclerview)
         productsRecyclerView.layoutManager = LinearLayoutManager(activity)
         productsRecyclerView.adapter = adapter
-        val addToCartButton = productsRecyclerView.findViewById<Button>(R.id.add_to_cart)
 
-
-        addToCartButton.setOnClickListener(){
-            val coffeeType = coffeeTypeDropdown.text.toString()
-            val coffeeGrade = coffeeGradeEditText.text.toString()
-            val quantity = quantityEditText.text.toString().toDoubleOrNull()
-            val price = priceEditText.text.toString().toDoubleOrNull()
-            val userId = auth.currentUser?.uid
-            val product = Product(coffeeType, coffeeGrade, quantity, price, userId)
-
-            if (imageUri != null) {
-                val storageRef = storage.reference
-                val imageRef = storageRef.child("product_images/${product.hashCode()}")
-                val uploadTask = imageRef.putFile(imageUri!!)
-                uploadTask.continueWithTask { task ->
-                    if (!task.isSuccessful) {
-                        task.exception?.let {
-                            throw it
-                        }
-                    }
-                    imageRef.downloadUrl
-                }.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val downloadUri = task.result
-                        // Add download URL to product object
-                        product.imageUrl = downloadUri.toString()
-                        // Add product to Firebase Realtime Database
-                        val productsRef = database.getReference("orders")
-                        productsRef.push().setValue(product)
-                            .addOnSuccessListener {
-                                Toast.makeText(
-                                    activity?.applicationContext,
-                                    "added to cart successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-                                val fragment = ProductsFragment()
-                                val transaction = parentFragmentManager.beginTransaction()
-                                transaction.replace(R.id.frame_layout,fragment).commit()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(
-                                    activity?.applicationContext,
-                                    "Error adding product: ${e.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                    } else {
-                        Toast.makeText(
-                            activity?.applicationContext,
-                            "Error uploading image: ${task.exception?.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-
-        }
 
 
 
