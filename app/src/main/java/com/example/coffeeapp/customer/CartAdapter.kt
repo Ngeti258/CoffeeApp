@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -79,7 +78,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
         val coffeeGradeTV: TextView = itemView.findViewById(R.id.coffeeGradeTV)
         val priceTV: TextView = itemView.findViewById(R.id.coffeePriceTV)
         val productIV: ImageView = itemView.findViewById(R.id.imageView)
-        val deleteButton: Button = itemView.findViewById(R.id.delete_button)
+        //val deleteButton: Button = itemView.findViewById(R.id.delete_button)
 
 
     }
