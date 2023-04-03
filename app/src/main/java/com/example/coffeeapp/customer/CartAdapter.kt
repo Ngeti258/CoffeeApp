@@ -48,10 +48,10 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
             onItemClickListener.onItemClick(product)
 
         }
-//        holder.deleteButton.setOnClickListener {
+//        holder.deleteButton.setOnClickListener(){
 //            // Remove the item from the cart
-//            val position = adapterPosition
-//            productList.removeAt(position)
+//            val position = productList[position]
+//            product.removeAt(position)
 //            notifyItemRemoved(position)
 //
 //            // Delete the item from the database
@@ -78,7 +78,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
         val coffeeGradeTV: TextView = itemView.findViewById(R.id.coffeeGradeTV)
         val priceTV: TextView = itemView.findViewById(R.id.coffeePriceTV)
         val productIV: ImageView = itemView.findViewById(R.id.imageView)
-        //val deleteButton: Button = itemView.findViewById(R.id.delete_button)
+        // val deleteButton: Button = itemView.findViewById(R.id.delete_button)
 
 
     }
