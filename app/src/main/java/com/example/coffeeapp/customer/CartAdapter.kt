@@ -1,14 +1,16 @@
-package com.example.coffeeapp.farmer
+package com.example.coffeeapp.customer
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coffeeapp.R
+import com.example.coffeeapp.farmer.Product
 import java.text.DecimalFormat
 
 class CartAdapter(private val context: Context, var productList: List<Product>) :
@@ -16,9 +18,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
 
     private var onItemClickListener: OnItemClickListener = object : OnItemClickListener {
         override fun onItemClick(product: Product) {
-//            val fragment = ProductsFragment()
-//            val transaction = parentFragmentManager.beginTransaction()
-//            transaction.replace(R.id.framelayout,fragment).commit()
+
         }
     }
 
@@ -31,7 +31,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_products, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.products_layout, parent, false)
         return ProductViewHolder(view)
     }
 
@@ -41,10 +41,6 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
         holder.coffeeTypeTV.text = product.coffeeType
         holder.coffeeGradeTV.text = " ${product.coffeeGrade}"
 
-//        val quantityFormat = DecimalFormat("#,###.#")
-//        val formattedQuantity = quantityFormat.format(product.quantity)
-//        holder.quantityTextView.text = "${formattedQuantity}kg"
-
         val priceFormat = DecimalFormat("Ksh#,###.## per kilogram")
         val formattedPrice = priceFormat.format(product.price)
         holder.priceTV.text = formattedPrice
@@ -53,6 +49,20 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
             onItemClickListener.onItemClick(product)
 
         }
+//        holder.deleteButton.setOnClickListener {
+//            // Remove the item from the cart
+//            val position = adapterPosition
+//            productList.removeAt(position)
+//            notifyItemRemoved(position)
+//
+//            // Delete the item from the database
+//            val dao = ProductDatabase.getInstance(itemView.context).productDao()
+//            dao.deleteProduct(product.id)
+//
+//            // Call the onItemClick() method of the listener to handle any additional actions
+//            listener.onItemClick(product)
+//        }
+
 
         // Load product image using Glide library
         if (product.imageUrl != null && product.imageUrl!!.isNotBlank()) {
@@ -67,8 +77,10 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val coffeeTypeTV: TextView = itemView.findViewById(R.id.coffeeTypeTV)
         val coffeeGradeTV: TextView = itemView.findViewById(R.id.coffeeGradeTV)
-        //val quantityTextView: TextView = itemView.findViewById(R.id.coffeeQuantityTV)
         val priceTV: TextView = itemView.findViewById(R.id.coffeePriceTV)
         val productIV: ImageView = itemView.findViewById(R.id.imageView)
+        val deleteButton: Button = itemView.findViewById(R.id.delete_button)
+
+
     }
 }
