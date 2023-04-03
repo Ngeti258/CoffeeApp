@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
-import com.example.coffeeapp.farmer.CartAdapter
 import com.example.coffeeapp.farmer.Product
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
