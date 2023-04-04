@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.products_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.cart_layout, parent, false)
         return ProductViewHolder(view)
     }
 
@@ -44,12 +45,10 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
         val formattedPrice = priceFormat.format(product.price)
         holder.priceTV.text = formattedPrice
 
-        holder.productIV.setOnClickListener() {
-            onItemClickListener.onItemClick(product)
 
-        }
-//        holder.deleteButton.setOnClickListener(){
-//            // Remove the item from the cart
+
+        holder.deleteButton.setOnClickListener(){
+            // Remove the item from the cart
 //            val position = productList[position]
 //            product.removeAt(position)
 //            notifyItemRemoved(position)
@@ -60,7 +59,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
 //
 //            // Call the onItemClick() method of the listener to handle any additional actions
 //            listener.onItemClick(product)
-//        }
+        }
 
 
         // Load product image using Glide library
@@ -78,7 +77,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
         val coffeeGradeTV: TextView = itemView.findViewById(R.id.coffeeGradeTV)
         val priceTV: TextView = itemView.findViewById(R.id.coffeePriceTV)
         val productIV: ImageView = itemView.findViewById(R.id.imageView)
-        // val deleteButton: Button = itemView.findViewById(R.id.delete_button)
+        val deleteButton: Button = itemView.findViewById(R.id.delete_button)
 
 
     }

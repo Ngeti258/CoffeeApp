@@ -10,7 +10,7 @@
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:background="@color/Lightgreen">
 
@@ -99,12 +99,11 @@
             android:id="@+id/delete_button"
             android:layout_width="50dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="340dp"
+            android:layout_marginStart="344dp"
+            android:background="@drawable/btn_background"
             android:text="@string/delete_button"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

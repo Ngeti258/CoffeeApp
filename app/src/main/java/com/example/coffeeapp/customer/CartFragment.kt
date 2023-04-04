@@ -27,11 +27,9 @@ class CartFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_cart, container, false)
 
-        // Initialize database
         database = FirebaseDatabase.getInstance()
         databaseRef = database.reference.child("carts")
 
-        // Initialize RecyclerView and ProductAdapter
         productList = mutableListOf()
         adapter = CartAdapter(requireContext(), productList)
         productsRecyclerView = rootView.findViewById(R.id.products_recyclerview)
@@ -39,7 +37,6 @@ class CartFragment : Fragment() {
         productsRecyclerView.adapter = adapter
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // Attach listener to databaseRef
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 productList.clear()
@@ -55,7 +52,6 @@ class CartFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
             }
         })
         return rootView
