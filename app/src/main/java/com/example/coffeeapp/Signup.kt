@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.coffeeapp.customer.Customer
 import com.example.coffeeapp.databinding.ActivitySignupBinding
 import com.example.coffeeapp.farmer.Farmer
 import com.google.firebase.auth.FirebaseAuth
@@ -103,7 +104,7 @@ class Signup : AppCompatActivity() {
                                 finish()
                                 startActivity(intent)
                             } else if (role == "Customer") {
-                                val intent = Intent(this, MainActivity::class.java)
+                                val intent = Intent(this, Customer::class.java)
                                 finish()
                                 startActivity(intent)
                             }

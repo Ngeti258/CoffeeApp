@@ -1,5 +1,6 @@
 package com.example.coffeeapp.customer
 
+import DatabaseHelper
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coffeeapp.R
 import com.example.coffeeapp.farmer.Product
 import java.text.DecimalFormat
 
-class CartAdapter(private val context: Context, var productList: List<Product>) :
+class CartAdapter(private val context: Context, private var productList: List<Product>) :
     RecyclerView.Adapter<CartAdapter.ProductViewHolder>(){
 
     private var onItemClickListener: OnItemClickListener = object : OnItemClickListener {
@@ -47,20 +49,14 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
 
 
 
-        holder.deleteButton.setOnClickListener(){
-            // Remove the item from the cart
-//            val position = productList[position]
-//            product.removeAt(position)
-//            notifyItemRemoved(position)
-//
-//            // Delete the item from the database
-//            val dao = ProductDatabase.getInstance(itemView.context).productDao()
-//            dao.deleteProduct(product.id)
-//
-//            // Call the onItemClick() method of the listener to handle any additional actions
-//            listener.onItemClick(product)
+        holder.deleteButton.setOnClickListener {
+            val db = DatabaseHelper(context)
+            db.deleteProduct(product)
+            productList.toMutableList().remove(product)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, productList.size)
+            Toast.makeText(context, "Product removed from cart", Toast.LENGTH_SHORT).show()
         }
-
 
         // Load product image using Glide library
         if (product.imageUrl != null && product.imageUrl!!.isNotBlank()) {
@@ -78,6 +74,7 @@ class CartAdapter(private val context: Context, var productList: List<Product>) 
         val priceTV: TextView = itemView.findViewById(R.id.coffeePriceTV)
         val productIV: ImageView = itemView.findViewById(R.id.imageView)
         val deleteButton: Button = itemView.findViewById(R.id.delete_button)
+
 
 
     }

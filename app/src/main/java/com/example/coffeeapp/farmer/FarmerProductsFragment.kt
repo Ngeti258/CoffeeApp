@@ -80,7 +80,7 @@ class FarmerProductsFragment : Fragment() {
         }
 
 
-        // Set up Post button
+// Set up Post button
         postButton.setOnClickListener {
             // Get input values
             val coffeeType = coffeeTypeDropdown.text.toString()
@@ -88,7 +88,6 @@ class FarmerProductsFragment : Fragment() {
             val quantity = quantityEditText.text.toString().toDoubleOrNull()
             val price = priceEditText.text.toString().toDoubleOrNull()
             val userId = auth.currentUser?.uid
-
 
             // Validate inputs
             if (coffeeType.isBlank()) {
@@ -135,27 +134,31 @@ class FarmerProductsFragment : Fragment() {
                         val downloadUri = task.result
                         // Add download URL to product object
                         product.imageUrl = downloadUri.toString()
-                        // Add product to Firebase Realtime Database
+                        // Add product to Firebase Realtime Database with product ID as a property
                         val productsRef = database.getReference("products")
-                        productsRef.push().setValue(product)
-                            .addOnSuccessListener {
-                                Toast.makeText(
-                                    activity?.applicationContext,
-                                    "Product added successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                        val productId = productsRef.push().key
+                        productId?.let {
+                            product.productId = it
+                            productsRef.child(productId).setValue(product)
+                                .addOnSuccessListener {
+                                    Toast.makeText(
+                                        activity?.applicationContext,
+                                        "Product added successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
 
-                                val fragment = ProductsFragment()
-                                val transaction = parentFragmentManager.beginTransaction()
-                                transaction.replace(R.id.frame_layout,fragment).commit()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(
-                                    getActivity()?.applicationContext,
-                                    "Error adding product: ${e.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                    val fragment = ProductsFragment()
+                                    val transaction = parentFragmentManager.beginTransaction()
+                                    transaction.replace(R.id.frame_layout,fragment).commit()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(
+                                        getActivity()?.applicationContext,
+                                        "Error adding product: ${e.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        }
                     } else {
                         Toast.makeText(
                             getActivity()?.applicationContext,
@@ -164,15 +167,15 @@ class FarmerProductsFragment : Fragment() {
                         ).show()
                     }
                 }
-            }else{
+            } else {
                 Toast.makeText(
                     activity?.applicationContext,
                     "image missing,add image",
                     Toast.LENGTH_SHORT
                 ).show()
-
             }
         }
+
         return view
     }
 
@@ -196,8 +199,11 @@ class FarmerProductsFragment : Fragment() {
         val quantity: Double? = 0.0,
         val price: Double? = 0.0,
         val userId: String? = null,
-        var imageUrl: String? = null
-    )
+        var imageUrl: String? = null,
+        var productId: String? = null
+
+    ) {
+    }
 
 
 

@@ -6,17 +6,19 @@ class Products {
     var quantity:Number? = null
     var price:Number? = null
     var uid : String? = null
-    var imageUrl: Int? = null
+    private var imageUrl: Int? = null
+    private var productId : String? = null
 
     constructor(){}
 
 
-    constructor(coffeeType:String?,coffeeGrade:String?,quantity:Number?,price:Number?,uid: String?,imageUrl : Int?){
+    constructor(coffeeType:String?,coffeeGrade:String?,quantity:Number?,price:Number?,uid: String?,imageUrl : Int?,productId : String?){
         this.coffeeType  = coffeeType
         this.coffeeGrade = coffeeGrade
         this.quantity = quantity
         this.price = price
         this.uid = uid
         this.imageUrl = imageUrl
+        this.productId = productId
     }
 }
