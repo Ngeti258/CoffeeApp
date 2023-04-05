@@ -1,6 +1,5 @@
 package com.example.coffeeapp.customer
 
-import DatabaseHelper
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.coffeeapp.DatabaseHelper
 import com.example.coffeeapp.R
 import com.example.coffeeapp.farmer.Product
 import java.text.DecimalFormat
@@ -51,12 +51,13 @@ class CartAdapter(private val context: Context, private var productList: List<Pr
 
         holder.deleteButton.setOnClickListener {
             val db = DatabaseHelper(context)
-            db.deleteProduct(product)
-            productList.toMutableList().remove(product)
+            db.deleteCartItem(product)
+//            cartItems.remove(product)
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position, productList.size)
+//            notifyItemRangeChanged(position, cartItems.size)
             Toast.makeText(context, "Product removed from cart", Toast.LENGTH_SHORT).show()
         }
+
 
         // Load product image using Glide library
         if (product.imageUrl != null && product.imageUrl!!.isNotBlank()) {

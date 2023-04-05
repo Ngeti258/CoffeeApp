@@ -64,32 +64,32 @@ class CustomerProductsAdapter(
             cartItem.userId.let { it1 ->
                 cartItem.coffeeType.let { it2 ->
 
-                        if (it1 != null) {
-                            if (it2 != null) {
-                                FirebaseAuth.getInstance().currentUser?.uid?.let { it3 ->
-                                    cartRef.child(it3).push().setValue(cartItem)
-                                        .addOnSuccessListener {
-                                            Toast.makeText(
-                                                context,
-                                                "Added to cart successfully",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                            val cartFragment = CartFragment.newInstance()
-                                            cartFragment.show(
-                                                (context as FragmentActivity).supportFragmentManager,
-                                                "CartFragment"
-                                            )
-                                        }.addOnFailureListener {
-                                            Toast.makeText(
-                                                context,
-                                                "Failed to add to cart: ${it.message}",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                }
+                    if (it1 != null) {
+                        if (it2 != null) {
+                            FirebaseAuth.getInstance().currentUser?.uid?.let { it3 ->
+                                cartRef.child(it3).push().setValue(cartItem)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            context,
+                                            "Added to cart successfully",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        val cartFragment = CartFragment.newInstance()
+                                        cartFragment.show(
+                                            (context as FragmentActivity).supportFragmentManager,
+                                            "CartFragment"
+                                        )
+                                    }.addOnFailureListener {
+                                        Toast.makeText(
+                                            context,
+                                            "Failed to add to cart: ${it.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                             }
                         }
                     }
+                }
             }
         }
 
