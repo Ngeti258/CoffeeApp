@@ -21,7 +21,7 @@ class CartFragment : Fragment() {
     private lateinit var adapter: CartAdapter
     private lateinit var productsRecyclerView: RecyclerView
     private lateinit var databaseRef: DatabaseReference
-    private lateinit var confirmPurchase : Button
+    private lateinit var confirmPurchase: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,38 +44,79 @@ class CartFragment : Fragment() {
         productsRecyclerView.layoutManager = LinearLayoutManager(activity)
         productsRecyclerView.adapter = adapter
         confirmPurchase = rootView.findViewById(R.id.confirm_purchase)
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
         confirmPurchase.setOnClickListener {
             val ordersRef = database.reference.child("orders")
+                .child(FirebaseAuth.getInstance().currentUser?.uid!!)
             for (product in productList) {
                 val order = Order(
-                    userId = userId,
-                    productId = product.productId,
-                    productName = product.coffeeType,
-                    productPrice = product.price,
-                    productQuantity = product.quantity,
-                    farmerId = product.userId,
-                    orderDate = System.currentTimeMillis().toString()
+                    product.coffeeType,
+                    product.coffeeGrade,
+                    product.price,
+                    product.imageUrl,
+                    FirebaseAuth.getInstance().currentUser?.uid ?: "",
+                    product.productId,
+                    product.userId // This should be the farmer's id, not the user's id
                 )
-                product.userId?.let { it1 ->
-                    ordersRef.child(it1).push().setValue(order).addOnSuccessListener {
+                ordersRef.push().setValue(order)
+                    .addOnSuccessListener {
                         Toast.makeText(
                             activity?.applicationContext,
                             "Orders placed successfully",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }
-                databaseRef.removeValue()            }
+                databaseRef.removeValue()
+            }
         }
+
+        // Assuming you have a cartList that contains the items in the cart
+
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 productList.clear()
                 for (productSnapshot in snapshot.children) {
                     val product = productSnapshot.getValue(Product::class.java)
                     if (product != null) {
-                        if(userId == product.userId){
-                            product?.let { productList.add(it) }
+                        if (FirebaseAuth.getInstance().currentUser?.uid == product.userId) {
+                            product?.let {
+                                productList.add(it)
+                                // Check if the order with the same productId already exists
+                                val ordersRef = database.reference.child("orders")
+                                val query = ordersRef.child(it.farmerId!!)
+                                    .orderByChild("productId")
+                                    .equalTo(it.productId)
+                                query.addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        if (snapshot.exists()) {
+                                            // The order already exists, don't add it again
+                                            return
+                                        } else {
+                                            // The order doesn't exist, add it to the database if it's in the cart
+                                            if (productList.any { cartItem -> cartItem.productId == it.productId }) {
+                                                val order = Order(
+                                                    it.coffeeType,
+                                                    it.coffeeGrade,
+                                                    it.price,
+                                                    it.imageUrl,
+                                                    FirebaseAuth.getInstance().currentUser?.uid ?: "",
+                                                    it.productId,
+                                                    it.farmerId // Use the farmerId from the product
+                                                )
+                                                ordersRef.child(it.farmerId).push()
+                                                    .setValue(order)
+                                                    .addOnSuccessListener {
+                                                        // Handle the success case if needed
+                                                    }
+                                            }
+                                        }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        // Handle the error case if needed
+                                    }
+                                })
+                            }
                         }
                     }
                 }
@@ -83,12 +124,15 @@ class CartFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Handle the error case if needed
             }
         })
+
+
+
+
         return rootView
     }
-
-
 
     fun show(transaction: FragmentManager, s: String) {
 
@@ -99,14 +143,23 @@ class CartFragment : Fragment() {
             return CartFragment()
         }
     }
-    data class Order(
-        val userId: String?,
-        val productId: String?,
-        val productName: String?,
-        val productPrice: Double?,
-        val farmerId : String?,
-        val productQuantity: Double?,
-        var orderDate:String?
-        )
+
+    class Order(
+        coffeeType: String?,
+        coffeeGrade: String?,
+        price: Double?,
+        imageUrl: String?,
+        userId: String?,
+        productId: String?,
+        farmerId: String?
+    ) {
+        val userId: String? = userId
+        val farmerId: String? = farmerId
+        val coffeeGrade: String? = coffeeGrade
+        val price: Double? = price
+        val imageUrl: String? = imageUrl
+        val coffeeType: String? = coffeeType
+        val productId: String? = productId
+    }
 
 }

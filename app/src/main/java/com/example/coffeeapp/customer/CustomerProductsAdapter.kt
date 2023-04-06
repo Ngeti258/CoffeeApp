@@ -1,5 +1,6 @@
 package com.example.coffeeapp.customer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,7 @@ class CustomerProductsAdapter(
         return ProductViewHolder(view)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
 
         val product = productList[position]
@@ -61,11 +63,6 @@ class CustomerProductsAdapter(
 
             // add the cart item to the database
             val cartRef = FirebaseDatabase.getInstance().getReference("carts")
-            cartItem.userId.let { it1 ->
-                cartItem.coffeeType.let { it2 ->
-
-                    if (it1 != null) {
-                        if (it2 != null) {
                             FirebaseAuth.getInstance().currentUser?.uid?.let { it3 ->
                                 cartRef.child(it3).push().setValue(cartItem)
                                     .addOnSuccessListener {
@@ -89,12 +86,8 @@ class CustomerProductsAdapter(
                             }
                         }
                     }
-                }
-            }
-        }
 
 
-    }
 
     override fun getItemCount() = productList.size
 
@@ -108,7 +101,6 @@ class CustomerProductsAdapter(
 }
 
 class CartItem(coffeeType: String?, coffeeGrade: String?, price: Double?, quantity: Double?, imageUrl: String?, s: String, productId: String?,farmerId: String?) {
-
 
     val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
     val farmerId: String? = farmerId

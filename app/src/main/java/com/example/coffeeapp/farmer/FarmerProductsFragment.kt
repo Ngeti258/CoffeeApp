@@ -200,7 +200,9 @@ class FarmerProductsFragment : Fragment() {
         val price: Double? = 0.0,
         val userId: String? = null,
         var imageUrl: String? = null,
-        var productId: String? = null
+        var productId: String? = null,
+        val farmerId: String? = null
+
 
     ) {
     }

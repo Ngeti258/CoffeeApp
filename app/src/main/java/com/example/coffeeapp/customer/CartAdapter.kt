@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.coffeeapp.DatabaseHelper
 import com.example.coffeeapp.R
 import com.example.coffeeapp.farmer.Product
+import com.google.firebase.auth.FirebaseAuth
 import java.text.DecimalFormat
 
 class CartAdapter(private val context: Context, private var productList: List<Product>) :
@@ -79,4 +80,16 @@ class CartAdapter(private val context: Context, private var productList: List<Pr
 
 
     }
+}
+class OrderItem(coffeeType: String?, coffeeGrade: String?, price: Double?, quantity: Double?, imageUrl: String?, s: String, productId: String?,farmerId: String?) {
+
+
+    val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
+    val farmerId: String? = farmerId
+    val coffeeGrade: String? = coffeeGrade
+    val price : Double? = price
+    val imageUrl : String? = imageUrl
+    val coffeeType: String? = coffeeType
+    val productId : String? = productId
+
 }
