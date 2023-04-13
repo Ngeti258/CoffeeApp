@@ -56,33 +56,37 @@ class CustomerProductsAdapter(
                 product.imageUrl,
                 FirebaseAuth.getInstance().currentUser?.uid ?: "",
                 product.productId,
-                product.userId
+                product.userId,
+
 
             )
 
             // add the cart item to the database
             val cartRef = FirebaseDatabase.getInstance().getReference("carts")
+            val cartProductId = cartRef.push().key
+            cartItem.cartProductId=cartProductId
             FirebaseAuth.getInstance().currentUser?.uid?.let { it3 ->
                 product.productId?.let { it1 ->
-                    cartRef.child(it3).child(it1).push().setValue(cartItem)
-                        .addOnSuccessListener {
-                            Toast.makeText(
-                                context,
-                                "Added to cart successfully",
-                                Toast.LENGTH_SHORT
-                            ).show()
-            //                        val cartFragment = CartFragment.newInstance()
-            //                        cartFragment.show(
-            //                            (context as FragmentActivity).supportFragmentManager,
-            //                            "CartFragment"
-            //                        )
-                        }.addOnFailureListener {
-                            Toast.makeText(
-                                context,
-                                "Failed to add to cart: ${it.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    if (cartProductId != null) {
+                        cartRef.child(it3).child(cartProductId).setValue(cartItem)
+                            .addOnSuccessListener {
+                                // Add the item to the local productList and notify the adapter
+                                productList = productList.toMutableList().apply { add(product) }
+                                notifyItemInserted(productList.lastIndex)
+                                Toast.makeText(
+                                    context,
+                                    "Added to cart successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }.addOnFailureListener {
+                                Toast.makeText(
+                                    context,
+                                    "Failed to add to cart: ${it.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                    }
                 }
             }
         }
@@ -101,8 +105,16 @@ class CustomerProductsAdapter(
     }
 }
 
-class CartItem(coffeeType: String?, coffeeGrade: String?, price: Double?, quantity: Double?, imageUrl: String?, s: String, productId: String?,farmerId: String?) {
-
+class CartItem(
+    coffeeType: String?,
+    coffeeGrade: String?,
+    price: Double?,
+    quantity: Double?,
+    imageUrl: String?,
+    s: String,
+    productId: String?,
+    farmerId: String?
+) {
     val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
     val farmerId: String? = farmerId
     val coffeeGrade: String? = coffeeGrade
@@ -110,5 +122,5 @@ class CartItem(coffeeType: String?, coffeeGrade: String?, price: Double?, quanti
     val imageUrl : String? = imageUrl
     val coffeeType: String? = coffeeType
     val productId : String? = productId
-
+    var cartProductId : String? = null // add cartProductId as a property
 }

@@ -14,7 +14,7 @@ class DatabaseHelper(context: Context) {
 
 
     fun deleteCartItem(product: Product) {
-        val cartItemQuery: Query = databaseII.orderByChild("productId").equalTo(product.productId)
+        val cartItemQuery: Query = databaseII.orderByChild("cartProductId").equalTo(product.cartProductId)
 
         cartItemQuery.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
