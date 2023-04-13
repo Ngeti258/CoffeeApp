@@ -25,12 +25,7 @@ class ProductsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_products, container, false)
-//        val newProduct : Button = rootView.findViewById(R.id.new_product)
-//        newProduct.setOnClickListener {
-//            val fragment = FarmerProductsFragment()
-//            val transaction = parentFragmentManager.beginTransaction()
-//            transaction.replace(R.id.framelayout,fragment).commit()
-//        }
+
         val myProducts : Button = rootView.findViewById(R.id.my_products)
         myProducts.setOnClickListener {
             val fragment = ProductsFragment()
@@ -40,11 +35,9 @@ class ProductsFragment : Fragment() {
 
 
 
-        // Initialize database
         database = FirebaseDatabase.getInstance()
         databaseRef = database.reference.child("products")
 
-        // Initialize RecyclerView and ProductAdapter
         productList = mutableListOf()
         adapter = ProductAdapter(requireContext(), productList)
         productsRecyclerView = rootView.findViewById(R.id.products_recyclerview)
@@ -52,7 +45,6 @@ class ProductsFragment : Fragment() {
         productsRecyclerView.adapter = adapter
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // Attach listener to databaseRef
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 productList.clear()
@@ -68,7 +60,6 @@ class ProductsFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
             }
         })
         return rootView

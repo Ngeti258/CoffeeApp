@@ -16,9 +16,7 @@ class ProductAdapter(private val context: Context, var productList: List<Product
 
     private var onItemClickListener: OnItemClickListener = object : OnItemClickListener {
         override fun onItemClick(product: Product) {
-//            val fragment = ProductsFragment()
-//            val transaction = parentFragmentManager.beginTransaction()
-//            transaction.replace(R.id.framelayout,fragment).commit()
+
         }
     }
 
@@ -41,10 +39,6 @@ class ProductAdapter(private val context: Context, var productList: List<Product
         holder.coffeeTypeTV.text = product.coffeeType
         holder.coffeeGradeTV.text = " ${product.coffeeGrade}"
 
-//        val quantityFormat = DecimalFormat("#,###.#")
-//        val formattedQuantity = quantityFormat.format(product.quantity)
-//        holder.quantityTextView.text = "${formattedQuantity}kg"
-
         val priceFormat = DecimalFormat("Ksh#,###.## per kilogram")
         val formattedPrice = priceFormat.format(product.price)
         holder.priceTV.text = formattedPrice
@@ -54,7 +48,6 @@ class ProductAdapter(private val context: Context, var productList: List<Product
 
         }
 
-        // Load product image using Glide library
         if (product.imageUrl != null && product.imageUrl!!.isNotBlank()) {
             Glide.with(context).load(product.imageUrl).into(holder.productIV)
         } else {
@@ -67,7 +60,6 @@ class ProductAdapter(private val context: Context, var productList: List<Product
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val coffeeTypeTV: TextView = itemView.findViewById(R.id.coffeeTypeTV)
         val coffeeGradeTV: TextView = itemView.findViewById(R.id.coffeeGradeTV)
-        //val quantityTextView: TextView = itemView.findViewById(R.id.coffeeQuantityTV)
         val priceTV: TextView = itemView.findViewById(R.id.coffeePriceTV)
         val productIV: ImageView = itemView.findViewById(R.id.imageView)
     }

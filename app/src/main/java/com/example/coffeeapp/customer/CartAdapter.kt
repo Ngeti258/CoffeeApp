@@ -16,7 +16,7 @@ import com.example.coffeeapp.farmer.Product
 import com.google.firebase.auth.FirebaseAuth
 import java.text.DecimalFormat
 
-class CartAdapter(private val context: Context, private var productList: List<Product>) :
+class CartAdapter(private val context: Context, private var productList: MutableList<Product>) :
     RecyclerView.Adapter<CartAdapter.ProductViewHolder>(){
 
     private var onItemClickListener: OnItemClickListener = object : OnItemClickListener {
@@ -88,6 +88,7 @@ class OrderItem(coffeeType: String?, coffeeGrade: String?, price: Double?, quant
     val farmerId: String? = farmerId
     val coffeeGrade: String? = coffeeGrade
     val price : Double? = price
+    val quantity : Double? = quantity
     val imageUrl : String? = imageUrl
     val coffeeType: String? = coffeeType
     val productId : String? = productId

@@ -47,7 +47,6 @@ class CartFragment : Fragment() {
 
         confirmPurchase.setOnClickListener {
             val ordersRef = database.reference.child("orders")
-                .child(FirebaseAuth.getInstance().currentUser?.uid!!)
             for (product in productList) {
                 val order = Order(
                     product.coffeeType,
@@ -58,14 +57,18 @@ class CartFragment : Fragment() {
                     product.productId,
                     product.userId // This should be the farmer's id, not the user's id
                 )
-                ordersRef.push().setValue(order)
-                    .addOnSuccessListener {
-                        Toast.makeText(
-                            activity?.applicationContext,
-                            "Orders placed successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                product.farmerId?.let { it1 ->
+                    product.productId?.let { it2 ->
+                        ordersRef.child(it1).child(it2).push().setValue(order)
+                            .addOnSuccessListener {
+                                Toast.makeText(
+                                    activity?.applicationContext,
+                                    "Orders placed successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                     }
+                }
                 databaseRef.removeValue()
             }
         }
@@ -78,45 +81,9 @@ class CartFragment : Fragment() {
                 for (productSnapshot in snapshot.children) {
                     val product = productSnapshot.getValue(Product::class.java)
                     if (product != null) {
-                        if (FirebaseAuth.getInstance().currentUser?.uid == product.userId) {
-                            product?.let {
-                                productList.add(it)
-                                // Check if the order with the same productId already exists
-                                val ordersRef = database.reference.child("orders")
-                                val query = ordersRef.child(it.farmerId!!)
-                                    .orderByChild("productId")
-                                    .equalTo(it.productId)
-                                query.addListenerForSingleValueEvent(object : ValueEventListener {
-                                    override fun onDataChange(snapshot: DataSnapshot) {
-                                        if (snapshot.exists()) {
-                                            // The order already exists, don't add it again
-                                            return
-                                        } else {
-                                            // The order doesn't exist, add it to the database if it's in the cart
-                                            if (productList.any { cartItem -> cartItem.productId == it.productId }) {
-                                                val order = Order(
-                                                    it.coffeeType,
-                                                    it.coffeeGrade,
-                                                    it.price,
-                                                    it.imageUrl,
-                                                    FirebaseAuth.getInstance().currentUser?.uid ?: "",
-                                                    it.productId,
-                                                    it.farmerId // Use the farmerId from the product
-                                                )
-                                                ordersRef.child(it.farmerId).push()
-                                                    .setValue(order)
-                                                    .addOnSuccessListener {
-                                                        // Handle the success case if needed
-                                                    }
-                                            }
-                                        }
-                                    }
-
-                                    override fun onCancelled(error: DatabaseError) {
-                                        // Handle the error case if needed
-                                    }
-                                })
-                            }
+                        val userId = FirebaseAuth.getInstance().currentUser?.uid!!
+                        if(userId == product.userId){
+                            product?.let { productList.add(it) }
                         }
                     }
                 }
@@ -124,7 +91,7 @@ class CartFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle the error case if needed
+                // Handle database error
             }
         })
 
