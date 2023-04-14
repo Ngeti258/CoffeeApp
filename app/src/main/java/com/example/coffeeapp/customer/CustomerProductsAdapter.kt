@@ -59,7 +59,7 @@ class CustomerProductsAdapter(
                 product.userId,
 
 
-            )
+                )
 
             // add the cart item to the database
             val cartRef = FirebaseDatabase.getInstance().getReference("carts")

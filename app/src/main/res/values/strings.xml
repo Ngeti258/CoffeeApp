@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Coffee App</string>
-    <string name="user_name">Gabriel Ngetti</string>
+    <string name="user_name">Username here</string>
 
-    <string name="email">gabrielngeti4@gmail.com</string>
+    <string name="email">email</string>
     <string name="title_activity_farmer">Farmer</string>
     <!-- Strings used for fragments for navigation -->
 

@@ -17,26 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-
-        <Button
-            android:id="@+id/my_products"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_background"
-            android:text="My Products"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.966"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.998" />
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="-16dp" />
 
         <Button
             android:id="@+id/new_product"
@@ -46,9 +33,11 @@
             android:text="New Product"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.176"
+            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.998" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

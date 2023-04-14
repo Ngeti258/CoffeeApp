@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
     <item
         android:id="@+id/nav_home"
-        android:title="Home"
+        android:title="Orders"
         android:textColor="@color/green"
         android:icon="@drawable/baseline_home_24"/>
 
@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/nav_history"
-        android:title="Product List"
+        android:title="Orders History"
         android:textColor="@color/green"
         android:icon="@drawable/baseline_history_24"/>
     <item

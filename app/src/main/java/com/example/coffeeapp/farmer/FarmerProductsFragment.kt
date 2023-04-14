@@ -203,12 +203,7 @@ class FarmerProductsFragment : Fragment() {
         var productId: String? = null,
         val farmerId: String? = null,
         val cartProductId: String? = null
-
-
-
-    ) {
-    }
-
+    )
 
 
 

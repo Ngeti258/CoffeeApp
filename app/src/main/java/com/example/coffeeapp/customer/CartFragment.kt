@@ -55,7 +55,7 @@ class CartFragment : Fragment() {
                     product.imageUrl,
                     FirebaseAuth.getInstance().currentUser?.uid ?: "",
                     product.productId,
-                    product.userId // This should be the farmer's id, not the user's id
+                    product.farmerId // Modified: use the farmerId instead of the userId
                 )
                 product.farmerId?.let { it1 ->
                     product.productId?.let { it2 ->
@@ -94,9 +94,6 @@ class CartFragment : Fragment() {
                 // Handle database error
             }
         })
-
-
-
 
         return rootView
     }

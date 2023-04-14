@@ -26,9 +26,9 @@ class ProductsFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_products, container, false)
 
-        val myProducts : Button = rootView.findViewById(R.id.my_products)
-        myProducts.setOnClickListener {
-            val fragment = ProductsFragment()
+        val newProducts : Button = rootView.findViewById(R.id.new_product)
+        newProducts.setOnClickListener {
+            val fragment = FarmerProductsFragment()
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.frame_layout,fragment).commit()
         }
