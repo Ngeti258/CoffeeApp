@@ -1,63 +1,93 @@
-package com.example.coffeeapp
+package com.example.coffeeapp.farmer
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeapp.HistoryAdapter
+import com.example.coffeeapp.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HistoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HistoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private lateinit var historyRecyclerView: RecyclerView
+    private lateinit var database: FirebaseDatabase
+    private lateinit var orderHistoryList: MutableList<OrderHistory>
+    private lateinit var adapter: HistoryAdapter
+    private lateinit var productsRecyclerView: RecyclerView
+    private lateinit var databaseRef: DatabaseReference
+    private lateinit var DeleteButton :Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view=inflater.inflate(R.layout.fragment_history, container, false)
-        historyRecyclerView = view.findViewById(R.id.history_recyclerview)
-        return view
-    }
+        val rootView = inflater.inflate(R.layout.fragment_history, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HistoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HistoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        database = FirebaseDatabase.getInstance()
+        databaseRef = database.reference.child("history")
+
+        orderHistoryList = mutableListOf()
+        adapter = HistoryAdapter(requireContext(), orderHistoryList)
+        productsRecyclerView = rootView.findViewById(R.id.products_recyclerview)
+        productsRecyclerView.layoutManager = LinearLayoutManager(activity)
+        productsRecyclerView.adapter = adapter
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val deleteHistory = rootView.findViewById<Button>(R.id.clear_history)
+
+        deleteHistory.setOnClickListener {
+            val historyRef = FirebaseDatabase.getInstance().getReference("history")
+
+            historyRef.removeValue()
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Orders cleared", Toast.LENGTH_SHORT).show()
+                    requireFragmentManager().beginTransaction().detach(this).attach(this).commit()
                 }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Failed to clear orders: ${it.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+
+
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("SuspiciousIndentation")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                orderHistoryList.clear()
+                for (productSnapshot in snapshot.children) {
+                    val product = productSnapshot.getValue(OrderHistory::class.java)
+
+                            product?.let { orderHistoryList.add(it) }
+
+                adapter.notifyDataSetChanged()
             }
+
+
+        }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+        return rootView
     }
+    data class OrderHistory(
+        val coffeeType: String? = null,
+        val coffeeGrade: String? = null,
+        val quantity: Double? = 0.0,
+        val price: Double? = 0.0,
+        val userId: String? = null,
+        var imageUrl: String? = null,
+        var productId: String? = null,
+        var farmerId: String? = null,
+        var orderId: String? = null
+    )
 }
+

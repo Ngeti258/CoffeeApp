@@ -8,7 +8,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.example.coffeeapp.HistoryFragment
 import com.example.coffeeapp.Login
 import com.example.coffeeapp.ProfileFragment
 import com.example.coffeeapp.R
@@ -46,7 +45,7 @@ class Farmer : AppCompatActivity() {
         navView.setNavigationItemSelectedListener {
             it.isChecked = true
             when (it.itemId) {
-                R.id.nav_home -> replaceFragment(FarmerProductsFragment(),it.title.toString())
+                R.id.nav_home -> replaceFragment(OrdersFragment(),it.title.toString())
                 R.id.nav_products -> replaceFragment(ProductsFragment(),it.title.toString())
                 R.id.nav_history -> replaceFragment(HistoryFragment(),it.title.toString())
                 R.id.nav_profile -> replaceFragment(ProfileFragment(),it.title.toString())
@@ -54,7 +53,7 @@ class Farmer : AppCompatActivity() {
             true
         }
         // Set the home fragment as the default fragment
-        val defaultFragment = ProductsFragment()
+        val defaultFragment = OrdersFragment()
         supportFragmentManager.beginTransaction().replace(R.id.frame_layout, defaultFragment).commit()
         title = "Home"
     }

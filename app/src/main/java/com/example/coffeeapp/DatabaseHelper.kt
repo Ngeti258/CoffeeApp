@@ -9,12 +9,13 @@ class DatabaseHelper(context: Context) {
 
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val databaseII = FirebaseDatabase.getInstance().reference.child("carts").child(currentUser?.uid ?: "")
-    private val databaseIII = FirebaseDatabase.getInstance().reference.child("orders")
+    private val databaseIII = FirebaseDatabase.getInstance().reference.child("history")
+
 
 
 
     fun deleteCartItem(product: Product) {
-        val cartItemQuery: Query = databaseII.orderByChild("cartProductId").equalTo(product.cartProductId)
+        val cartItemQuery: Query = databaseII.orderByChild("cartProductId").equalTo(product.orderId)
 
         cartItemQuery.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -27,10 +28,10 @@ class DatabaseHelper(context: Context) {
             }
         })
     }
-    fun deleteOrderItem(product: Product) {
+    fun deleteOrderHistoryItem(product: Product) {
 
         product.farmerId?.let {
-            databaseIII.child(it).orderByChild("productId").equalTo(product.productId)
+            databaseIII.orderByChild("productId").equalTo(product.productId)
         }?.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (cartItemSnapshot in snapshot.children) {

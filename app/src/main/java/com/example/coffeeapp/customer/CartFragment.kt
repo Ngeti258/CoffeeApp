@@ -55,25 +55,28 @@ class CartFragment : Fragment() {
                     product.imageUrl,
                     FirebaseAuth.getInstance().currentUser?.uid ?: "",
                     product.productId,
-                    product.farmerId // Modified: use the farmerId instead of the userId
+                    product.farmerId ,// Modified: use the farmerId instead of the userId
+                    product.orderId
                 )
                 product.farmerId?.let { it1 ->
                     product.productId?.let { it2 ->
-                        ordersRef.child(it1).child(it2).push().setValue(order)
-                            .addOnSuccessListener {
-                                Toast.makeText(
-                                    activity?.applicationContext,
-                                    "Orders placed successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                        val orderId = databaseRef.push().key
+                        order.orderId = orderId
+                        if (orderId != null) {
+                            ordersRef.child(orderId).setValue(order)
+                                .addOnSuccessListener {
+                                    Toast.makeText(
+                                        activity?.applicationContext,
+                                        "Orders placed successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        }
                     }
                 }
                 databaseRef.removeValue()
             }
         }
-
-        // Assuming you have a cartList that contains the items in the cart
 
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -115,7 +118,8 @@ class CartFragment : Fragment() {
         imageUrl: String?,
         userId: String?,
         productId: String?,
-        farmerId: String?
+        farmerId: String?,
+        orderId:String?
     ) {
         val userId: String? = userId
         val farmerId: String? = farmerId
@@ -124,6 +128,7 @@ class CartFragment : Fragment() {
         val imageUrl: String? = imageUrl
         val coffeeType: String? = coffeeType
         val productId: String? = productId
+        var orderId: String? = orderId
     }
 
 }

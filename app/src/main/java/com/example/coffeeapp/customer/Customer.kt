@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.coffeeapp.Login
 import com.example.coffeeapp.ProfileFragment
 import com.example.coffeeapp.R
+import com.example.coffeeapp.farmer.HistoryFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -47,7 +48,7 @@ class Customer : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> replaceFragment(CustomerHomeFragment(),it.title.toString())
                 R.id.nav_products -> replaceFragment(CartFragment(),it.title.toString())
-                R.id.nav_history -> replaceFragment(CustomerHistoryFragment(),it.title.toString())
+                R.id.nav_history -> replaceFragment(HistoryFragment(),it.title.toString())
                 R.id.nav_profile -> replaceFragment(ProfileFragment(),it.title.toString())
             }
             true
