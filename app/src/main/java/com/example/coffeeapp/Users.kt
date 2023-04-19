@@ -15,15 +15,4 @@ class Users {
         this.uid = uid
     }
 
-//    fun getName(): String? {
-//        return name
-//    }
-//
-//    fun getEmail(): String? {
-//        return email
-//    }
-
-//    fun getRole(): String? {
-//        return role
-//    }
 }

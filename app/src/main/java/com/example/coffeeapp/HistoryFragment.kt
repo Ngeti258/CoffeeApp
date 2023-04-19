@@ -21,7 +21,7 @@ class HistoryFragment : Fragment() {
     private lateinit var adapter: HistoryAdapter
     private lateinit var productsRecyclerView: RecyclerView
     private lateinit var databaseRef: DatabaseReference
-    private lateinit var DeleteButton :Button
+    private lateinit var deleteHistory :Button
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -54,24 +54,16 @@ class HistoryFragment : Fragment() {
                     Toast.makeText(context, "Failed to clear orders: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
         }
-
-
-
         databaseRef.addValueEventListener(object : ValueEventListener {
             @SuppressLint("SuspiciousIndentation")
             override fun onDataChange(snapshot: DataSnapshot) {
                 orderHistoryList.clear()
                 for (productSnapshot in snapshot.children) {
                     val product = productSnapshot.getValue(OrderHistory::class.java)
-
                             product?.let { orderHistoryList.add(it) }
-
                 adapter.notifyDataSetChanged()
             }
-
-
         }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }

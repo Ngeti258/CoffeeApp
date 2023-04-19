@@ -1,12 +1,14 @@
 package com.example.coffeeapp.farmer
 
+import com.google.firebase.auth.FirebaseAuth
+
 class Products {
     var coffeeType:String? = null
     var coffeeGrade:String? = null
     var quantity:Number? = null
     var price:Number? = null
     var uid : String? = null
-    var name : String? = null
+    var name : String? = FirebaseAuth.getInstance().currentUser?.displayName
     private var imageUrl: Int? = null
     private var productId : String? = null
 

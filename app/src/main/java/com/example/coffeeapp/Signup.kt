@@ -123,8 +123,16 @@ class Signup : AppCompatActivity() {
     }
     private fun addUserToDatabase(name: String, email: String, role: String,uid: String) {
         mDbRef = FirebaseDatabase.getInstance().getReference()
-        mDbRef.child("user").child(uid).setValue(Users(name, email, role, uid))
+        mDbRef.child("user").child(uid).setValue(User(name, email, role, uid))
     }
+    data class User (
+
+        var name:String? = null,
+        var email:String? = null,
+        var role:String? = null,
+        var uid:String? = null
+
+        )
 }
 
 
