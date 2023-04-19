@@ -18,18 +18,7 @@
         <activity
             android:name=".customer.Customer"
             android:exported="false" />
-        <activity
-            android:name=".PurchaseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Profile"
-            android:exported="false" />
-        <activity
-            android:name=".History"
-            android:exported="false" />
-        <activity
-            android:name=".FarmerProducts"
-            android:exported="false" />
+
         <activity
             android:name=".farmer.Farmer"
             android:exported="false" />
