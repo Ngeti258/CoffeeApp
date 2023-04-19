@@ -53,6 +53,7 @@ class FarmerProductsFragment : Fragment() {
         priceEditText = view.findViewById(R.id.edt_price)
         imageView = view.findViewById(R.id.imageView)
         imageButton = view.findViewById(R.id.imageButton)
+
         val postButton = view.findViewById<Button>(R.id.btn_post)
         val storage = FirebaseStorage.getInstance()
         val storageRef = storage.reference
@@ -66,6 +67,7 @@ class FarmerProductsFragment : Fragment() {
         // Initialize Firebase Realtime Database
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
+        val name = auth.currentUser?.displayName
 
 
         // Set up Coffee type dropdown
@@ -87,10 +89,17 @@ class FarmerProductsFragment : Fragment() {
             val coffeeGrade = coffeeGradeEditText.text.toString()
             val quantity = quantityEditText.text.toString().toDoubleOrNull()
             val price = priceEditText.text.toString().toDoubleOrNull()
-            val userId = auth.currentUser?.uid
+            val name= userId?.let { it1 ->
 
-            // Validate inputs
-            if (coffeeType.isBlank()) {
+                if (name != null) {
+                    auth.currentUser?.displayName?.let { it2 ->
+                        database.reference.child("user").child(it1).get()
+                    }
+                }
+            }
+
+            val userId = auth.currentUser?.uid
+            if (coffeeType.isBlank()){
                 coffeeTypeDropdownLayout.error = "Please select a Coffee type"
                 return@setOnClickListener
             } else {
@@ -116,7 +125,7 @@ class FarmerProductsFragment : Fragment() {
             }
 
             // Create a new product object
-            val product = Product(coffeeType, coffeeGrade, quantity, price, userId)
+            val product = Product(coffeeType, coffeeGrade, quantity,price,userId)
 
             if (imageUri != null) {
                 val storageRef = storage.reference
@@ -139,6 +148,7 @@ class FarmerProductsFragment : Fragment() {
                         val productId = productsRef.push().key
                         productId?.let {
                             product.productId = it
+                            product.name = name.toString()
                             productsRef.child(productId).setValue(product)
                                 .addOnSuccessListener {
                                     Toast.makeText(
@@ -149,7 +159,7 @@ class FarmerProductsFragment : Fragment() {
 
                                     val fragment = ProductsFragment()
                                     val transaction = parentFragmentManager.beginTransaction()
-                                    transaction.replace(R.id.frame_layout,fragment).commit()
+                                    transaction.replace(R.id.frame_layout, fragment).commit()
                                 }
                                 .addOnFailureListener { e ->
                                     Toast.makeText(
@@ -199,6 +209,7 @@ class FarmerProductsFragment : Fragment() {
         val quantity: Double? = 0.0,
         val price: Double? = 0.0,
         val userId: String? = null,
+        var name:  String?=null,
         var imageUrl: String? = null,
         var productId: String? = null,
         var farmerId: String? = null,
