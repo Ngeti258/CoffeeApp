@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#83A183"
-    tools:context=".HistoryFragment">
+    android:background="#196019"
+    tools:context=".Login">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/products_recyclerview"

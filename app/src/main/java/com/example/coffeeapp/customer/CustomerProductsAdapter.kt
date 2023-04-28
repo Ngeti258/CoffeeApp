@@ -20,13 +20,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.DecimalFormat
+import java.util.*
 
 class CustomerProductsAdapter(
     private val context: Context,
     private var productList: List<Product>,
     private var userList: List<Signup.User>,
 
-) : RecyclerView.Adapter<CustomerProductsAdapter.ProductViewHolder>() {
+    ) : RecyclerView.Adapter<CustomerProductsAdapter.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(context)
@@ -120,6 +121,11 @@ class CustomerProductsAdapter(
     override fun getItemCount() = productList.size
 
 
+        fun setFilteredList(productList: List<Product>){
+            this.productList = productList
+            notifyDataSetChanged()
+
+        }
 
 
 

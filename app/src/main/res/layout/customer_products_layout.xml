@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Lightgreen">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/imageView"
@@ -71,7 +71,7 @@
             android:id="@+id/coffeeTypeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="40dp"
             android:text=" Arabica "
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -79,7 +79,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.21" />
+            app:layout_constraintVertical_bias="0.227" />
 
         <TextView
             android:id="@+id/coffeeGradeLabel"
@@ -95,11 +95,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.45" />
 
+
         <TextView
             android:id="@+id/coffeeGradeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
+            android:layout_marginEnd="80dp"
             android:text=" AA "
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -107,8 +108,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.45" />
-
+            app:layout_constraintVertical_bias="0.463" />
 
         <TextView
             android:id="@+id/coffeePriceTV"

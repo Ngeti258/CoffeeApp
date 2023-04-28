@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class DatabaseHelper(context: Context) {
-
+    private lateinit var productList: MutableList<Product>
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val databaseII = FirebaseDatabase.getInstance().reference.child("carts").child(currentUser?.uid ?: "")
     private val databaseIII = FirebaseDatabase.getInstance().reference.child("history")
@@ -14,8 +14,9 @@ class DatabaseHelper(context: Context) {
 
 
 
+
     fun deleteCartItem(product: Product) {
-        val cartItemQuery: Query = databaseII.orderByChild("cartProductId").equalTo(product.orderId)
+        val cartItemQuery: Query = databaseII.orderByChild("cartProductId").equalTo(product.cartProductId)
 
         cartItemQuery.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -28,19 +29,21 @@ class DatabaseHelper(context: Context) {
             }
         })
     }
-    fun deleteOrderHistoryItem(product: Product) {
 
-        product.farmerId?.let {
-            databaseIII.orderByChild("productId").equalTo(product.productId)
-        }?.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (cartItemSnapshot in snapshot.children) {
-                    cartItemSnapshot.ref.removeValue()
+
+        fun deleteOrderHistoryItem(product: Product) {
+
+            product.farmerId?.let {
+                databaseIII.orderByChild("productId").equalTo(product.productId)
+            }?.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (cartItemSnapshot in snapshot.children) {
+                        cartItemSnapshot.ref.removeValue()
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+        }
     }
-}
