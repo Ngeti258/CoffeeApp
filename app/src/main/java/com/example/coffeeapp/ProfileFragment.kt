@@ -44,7 +44,7 @@ class ProfileFragment : Fragment() {
                 if (snapshot.exists()) {
                     val name = snapshot.child("name").getValue(String::class.java)
                     val email = snapshot.child("email").getValue(String::class.java)
-                    val role = snapshot.child("role").getValue(String::class.java).toString()
+                    val role = snapshot.child("role").getValue(String::class.java)
                     nameTextView.text = name
                     emailTextView.text = email
                     roleTextView.text = role
