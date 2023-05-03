@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +18,7 @@ class ProfileFragment : Fragment() {
     private lateinit var nameTextView: TextView
     private lateinit var emailTextView: TextView
     private lateinit var roleTextView: TextView
+    private lateinit var updateButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,13 @@ class ProfileFragment : Fragment() {
         nameTextView = view.findViewById(R.id.edt_Name)
         emailTextView = view.findViewById(R.id.edt_Email)
         roleTextView = view.findViewById(R.id.edt_Role)
+        updateButton = view.findViewById(R.id.btn_update)
+        updateButton.setOnClickListener(){
+
+        }
         return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

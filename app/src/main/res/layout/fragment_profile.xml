@@ -64,5 +64,16 @@
             android:padding="12dp"
             android:layout_below="@id/edt_Email"
             />
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_Role"
+            android:text="Update Profile"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_background"
+            />
     </RelativeLayout>
 </FrameLayout>

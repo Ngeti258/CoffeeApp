@@ -1,10 +1,12 @@
 package com.example.coffeeapp.customer
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -23,6 +25,7 @@ class CartFragment : Fragment() {
     private lateinit var databaseRef: DatabaseReference
     private lateinit var confirmPurchase: Button
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +48,37 @@ class CartFragment : Fragment() {
         productsRecyclerView.adapter = adapter
         confirmPurchase = rootView.findViewById(R.id.confirm_purchase)
 
+
+        confirmPurchase = rootView.findViewById(R.id.confirm_purchase)
+        val totalPriceTextView = rootView.findViewById<TextView>(R.id.total_price_text_view)
+        var totalPrice = 0.0
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val cartRef = database.reference.child("carts").child(currentUser.uid)
+            cartRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    totalPrice = 0.0
+                    for (productSnapshot in dataSnapshot.children) {
+                        val product = productSnapshot.getValue(Product::class.java)
+                        if (product?.price != null) {
+                            totalPrice += product.price!!
+                        }
+                    }
+                    totalPriceTextView.text = "Total price: KSH $totalPrice"
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle error
+                }
+            })
+        } else {
+            // Handle case where user is not logged in
+        }
+
+
+
+
+
         confirmPurchase.setOnClickListener {
             val ordersRef = database.reference.child("orders")
             for (product in productList) {
@@ -55,7 +89,7 @@ class CartFragment : Fragment() {
                     product.imageUrl,
                     FirebaseAuth.getInstance().currentUser?.uid ?: "",
                     product.productId,
-                    product.farmerId ,// Modified: use the farmerId instead of the userId
+                    product.farmerId,
                     product.orderId
                 )
                 product.farmerId?.let { it1 ->
@@ -77,6 +111,7 @@ class CartFragment : Fragment() {
                 databaseRef.removeValue()
             }
         }
+
 
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -130,5 +165,4 @@ class CartFragment : Fragment() {
         val productId: String? = productId
         var orderId: String? = orderId
     }
-
 }
